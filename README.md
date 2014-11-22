@@ -162,9 +162,3 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 
 - 2014-11-22   v0.0.1   Complie underscore templates into JavaScript files.  
-
----
-
-Task submitted by [bubkoo](http://bubkoo.com)
-
-*This file was generated on Sun Nov 09 2014 13:49:22.*
