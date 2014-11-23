@@ -65,7 +65,7 @@ options: {
 Type: `Boolean`
 Default value: `true`
 
-By default keep the line break for the generated code. You can specify this option to `false` to get one line code, but you also shoule note that this option is not equal to htmlmin. 
+By default keep the HTML line break in the generated code. You can specify this option to `false` to get one line code, but you note that this option is not equal to htmlmin.
 
 #### options.namespace
 Type: `String` or `false` or `Function`
