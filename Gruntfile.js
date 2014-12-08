@@ -12,8 +12,8 @@ module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        jshint    : {
-            all    : [
+        jshint: {
+            all: [
                 'Gruntfile.js',
                 'tasks/*.js',
                 '<%= nodeunit.tests %>'
@@ -24,32 +24,26 @@ module.exports = function (grunt) {
         },
 
         // Before generating any new files, remove any previously-created files.
-        clean     : {
+        clean: {
             tests: ['tmp']
         },
 
         // Configuration to be run (and then tested).
         underscore: {
-            default_options: {
-                options: {
-                },
-                files  : {
-                    'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-                }
+            options: {
+                namespace: 'app',
+//                namespace: false,
+                amd: true
             },
-            custom_options : {
-                options: {
-                    namespace: 'MyApp.Templates',
-                    amd      : true
-                },
-                files  : {
-                    'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
+            test: {
+                files: {
+                    'dist/avatar.js': 'hbs/avatar.hbs'
                 }
             }
         },
 
         // Unit tests.
-        nodeunit  : {
+        nodeunit: {
             tests: ['test/*_test.js']
         }
 
