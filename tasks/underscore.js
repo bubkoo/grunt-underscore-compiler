@@ -18,13 +18,13 @@ module.exports = function (grunt) {
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
             separator: grunt.util.linefeed + grunt.util.linefeed,
-            indent   : '    ',
+            indent: '    ',
             quoteChar: '\'',
-            raw      : true,
+            raw: true,
             namespace: 'app.tpl',
-            global   : 'this',
-            amd      : false,
-            compile  : false,
+            global: 'this',
+            amd: false,
+            compile: false,
 
             templateSettings: {}
         });
@@ -120,6 +120,7 @@ module.exports = function (grunt) {
 
             }).join(grunt.util.normalizelf(options.separator));
 
+
             var modules;
             var amdString;
 
@@ -132,6 +133,7 @@ module.exports = function (grunt) {
                 } else if (Array.isArray(options.amd)) {
                     modules = options.amd;
                 }
+
                 var length = modules.length;
                 if (length) {
                     amdString += '[';
@@ -143,9 +145,13 @@ module.exports = function (grunt) {
                 amdString += ') {' + grunt.util.linefeed;
 
                 result = amdString + result;
-                result += grunt.util.linefeed;
-                result += grunt.util.linefeed;
-                result += options.indent + 'return ' + getTopNamespace(nsConflict) + ';';
+
+                if (hasNamespace) {
+                    result += grunt.util.linefeed;
+                    result += grunt.util.linefeed;
+                    result += options.indent + 'return ' + getTopNamespace(nsConflict) + ';';
+                }
+
                 result += grunt.util.linefeed;
                 result += '});';
             }
@@ -182,7 +188,7 @@ module.exports = function (grunt) {
     function nsDeclare(ns, root, quoteChar) {
         var result = {
             namespace: root,
-            defines  : []
+            defines: []
         };
         if (ns) {
             var parts = ns.split('.');
@@ -203,6 +209,7 @@ module.exports = function (grunt) {
     }
 
     function getTopNamespace(namespaces) {
+
         // this[app][tpl] => this[app][tpl]
         // this[app][tpl1], this[app][tpl2] => this[app]
         // this[app1][tpl], this[app2][tpl] => this
