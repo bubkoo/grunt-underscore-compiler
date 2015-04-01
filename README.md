@@ -102,8 +102,10 @@ options: {
     var names = filename.replace(/modules\/(.*)(\/\w+\.hbs)/, '$1');
     return names.split('/').join('.');
   },
-  files: {
-    'ns_nested_tmpls.js' : [ 'modules/**/*.hbs']
+  demo: {
+  	files: {
+    	'ns_nested_tmpls.js' : [ 'modules/**/*.html']
+  	}
   }
 }
 ```
@@ -168,11 +170,13 @@ grunt.initConfig({
     options: {
         namespace: 'MyApp.Templates'
     },
-    files: {
-      'path/to/result.js': 'path/to/source.html',
-      'path/to/another.js': ["path/to/sources/*.html', 'path/to/more/*.html']
-    },
-  },
+    demo:{
+      files: {
+        'path/to/result.js': 'path/to/source.html',
+        'path/to/another.js': ["path/to/sources/*.html', 'path/to/more/*.html']
+      }
+    }
+  }
 });
 ```
 
