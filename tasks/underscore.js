@@ -25,6 +25,7 @@ module.exports = function (grunt) {
             global: 'this',
             amd: false,
             compile: false,
+            trim: true, // trim each line
 
             templateSettings: {}
         });
@@ -64,7 +65,7 @@ module.exports = function (grunt) {
                     result += ';';
                 } else {
                     result = html2string(source, quoteChar, options.raw,
-                            options.amd || hasNamespace ? options.indent + options.indent : '');
+                            options.amd || hasNamespace ? options.indent + options.indent : '', options.trim);
                     result = quoteChar + result + quoteChar + ';';
                 }
 
@@ -167,22 +168,23 @@ module.exports = function (grunt) {
 
     // Helpers
     // -------
-    function html2string(html, quoteChar, raw, indent) {
+    function html2string(html, quoteChar, raw, indent, trim) {
         var line;
         var rBase = new RegExp('\\\\', 'g');
         var rQuote = new RegExp('\\' + quoteChar, 'g');
 
-        if (raw) {
-            // Keep line break
-            line = '\\n' + quoteChar + ' +' + grunt.util.linefeed + indent + quoteChar;
-        } else {
-            line = '\\n';
-        }
-
-        return html
-            .replace(rBase, '\\\\')
-            .replace(rQuote, '\\' + quoteChar)
-            .replace(/\r?\n/g, line);
+        return _.reduce(html.split('\n'), function(res, line){
+            // trim lines
+            if (trim) {
+                line = line.trim();
+            }
+            if (raw) {
+                res += line + '\n' + quoteChar + ' +' + grunt.util.linefeed + indent + quoteChar;
+            } else {
+                res += line;
+            }
+            return res;
+        }, '');
     }
 
     function nsDeclare(ns, root, quoteChar) {
