@@ -32,13 +32,20 @@ module.exports = function (grunt) {
         underscore: {
             options: {
                 namespace: 'app',
-//                namespace: false,
+                //                namespace: false,
                 amd: true
             },
             test: {
                 files: {
                     'dist/avatar.js': 'hbs/avatar.hbs'
                 }
+            },
+            demo: {
+                expand: true,
+                cwd: 'hbs/',
+                src: '*.hbs',
+                dest: 'dist/underscore/',
+                ext: '.js'
             }
         },
 
