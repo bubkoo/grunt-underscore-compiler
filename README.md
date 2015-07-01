@@ -77,6 +77,14 @@ Default value: `true`
 
 By default keep the HTML line break in the generated code. You can specify this option to `false` to get one line code, but you note that this option is not equal to htmlmin.
 
+#### options.trim
+
+Type: `Boolean`
+
+Default value: `true`
+
+By default trim each HTML line in the generated code, remove the space at the beginning and end for each line. You can specify this option to `false` to keep the space.
+
 #### options.namespace
 
 Type: `String` or `false` or `Function`
