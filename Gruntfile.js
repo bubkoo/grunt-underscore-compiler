@@ -37,7 +37,7 @@ module.exports = function (grunt) {
             },
             test: {
                 files: {
-                    'dist/avatar.js': 'hbs/avatar.hbs'
+                    'dist/test.js': 'tpl/test.html'
                 }
             },
             demo: {
