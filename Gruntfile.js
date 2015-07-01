@@ -31,8 +31,9 @@ module.exports = function (grunt) {
         // Configuration to be run (and then tested).
         underscore: {
             options: {
-                namespace: 'app',
-//                namespace: false,
+                namespace: false,
+                compile: true,
+                raw: false,
                 amd: true
             },
             test: {
