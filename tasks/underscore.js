@@ -59,6 +59,13 @@ module.exports = function (grunt) {
                 // Read file source.
                 var source = grunt.file.read(filepath);
                 var result;
+                if (options.trim) {
+                    // trim each line
+                    source = _.reduce(source.split(/\r?\n/), function(res, line){
+                        res += line.trim();
+                        return res;
+                    }, '');
+                }
                 if (options.compile === true) {
                     result = _.template(source, options.templateSettings).source;
                     result = result.replace(/\r?\n/g, '');
@@ -173,18 +180,10 @@ module.exports = function (grunt) {
         var rBase = new RegExp('\\\\', 'g');
         var rQuote = new RegExp('\\' + quoteChar, 'g');
 
-        return _.reduce(html.split('\n'), function(res, line){
-            // trim lines
-            if (trim) {
-                line = line.trim();
-            }
-            if (raw) {
-                res += line + '\n' + quoteChar + ' +' + grunt.util.linefeed + indent + quoteChar;
-            } else {
-                res += line;
-            }
-            return res;
-        }, '');
+        return html
+            .replace(rBase, '\\\\')
+            .replace(rQuote, '\\' + quoteChar)
+            .replace(/\r?\n/g, line);
     }
 
     function nsDeclare(ns, root, quoteChar) {
