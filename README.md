@@ -102,6 +102,8 @@ options: {
 ```
 You can generate nested namespaces based on the file system paths of your templates by providing a function. The function will be called with one argument (the template filepath). The function must return a dot notation based on the filepath.
 
+-The last array entry name derives from the `processName` option. The constructed final notation is `<options.global>[<namespace>][<namespace>]...[<processName>]`
+
 Example:
 
 ```js
@@ -110,6 +112,9 @@ options: {
     var names = filename.replace(/modules\/(.*)(\/\w+\.hbs)/, '$1');
     return names.split('/').join('.');
   },
+  processName: function(filename) {
+    return filename = filename.substring(filename.lastIndexOf('/') + 1, filename.lastIndexOf('.'));
+  }
   demo: {
   	files: {
     	'ns_nested_tmpls.js' : [ 'modules/**/*.html']
